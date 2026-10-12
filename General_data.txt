@@ -1,0 +1,5 @@
+Rock Type		Berea Sandstone
+Sample Index		SW-1
+Status			Dry 
+Length (cm)		30
+Diameter (cm)		3.81
