@@ -1,7 +1,12 @@
 __pycache__/
+# Ignore the full dataset
+SW-1/
+CW-1/
+
+# Ignore Python cache
+__pycache__/
 *.pyc
-.venv/
-.streamlit/secrets.toml
-*.xlsx
+
+# Ignore local OS files
 .DS_Store
 Thumbs.db
