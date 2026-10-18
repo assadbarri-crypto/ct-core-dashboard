@@ -1,8 +1,8 @@
 # Root of all CT data (parent of SW-1, SW-2, ...)
-root: "."
+root: ""
 
 # Which sample folder is currently active (matches "Sample Index" in General_data.txt)
-active_sample: "SW-1"
+active_sample: ""
 
 # Where the sample-info text file lives
 general_data_file: "./General_data.txt"
@@ -10,7 +10,7 @@ general_data_file: "./General_data.txt"
 # The two condition folders the dashboard compares.
 # These can be any sub-folders of the active sample (e.g. dry, saturated, brine, co2, ...).
 set1: "SW1_dry"
-set2: ""
+set2: "SW1_saturated"
 
 # Default viewer settings (overridable in the UI)
 defaults:
