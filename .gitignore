@@ -1,2 +1,6 @@
+# Ignore DICOM data folders in the parent directory
+../SW-1_dry/
+../SW-1_saturated/
+
+# Ignore Python cache
 __pycache__/
-*.pyc
