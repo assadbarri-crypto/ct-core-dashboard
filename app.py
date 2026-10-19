@@ -31,11 +31,19 @@ IS_DEMO = (HERE / "demo_data").exists()
 
 if IS_DEMO:
     st.sidebar.success("✅ Running in CLOUD DEMO Mode")
+    
+    # 1. Point directly to the specific folders inside demo_data
     ROOT = HERE / "demo_data"
     GEN_DATA = HERE / "General_data.txt"
-    ACTIVE_SAMPLE = ""
+    
+    # 2. Tell the app the "Sample" is the current demo folder itself
+    ACTIVE_SAMPLE = "" 
     DEFAULTS = CFG["defaults"]
     DEFAULT_SET1 = "SW1_dry"
+    
+    # 3. FORCE the scan to look exactly at the data folder
+    # This prevents it from looking for a sub-folder inside SW1_dry
+    dicom_folder_override = ROOT / "SW1_dry"
 else:
     # Local Mode (Your PC)
     ACTIVE_SAMPLE = CFG["active_sample"]
@@ -174,7 +182,10 @@ condition_names = [p.name for p in condition_dirs]
 default_set1 = DEFAULT_SET1 if DEFAULT_SET1 in condition_names else condition_names[0]
 set1_idx = condition_names.index(default_set1)
 set1 = st.sidebar.selectbox("Set 1 (primary)", condition_names, index=set1_idx)
-dicom_folder = sample_folder / set1
+if IS_DEMO:
+    dicom_folder = ROOT / set1
+else:
+    dicom_folder = sample_folder / set1
 
 if st.sidebar.button("Reload data"):
     st.cache_data.clear()

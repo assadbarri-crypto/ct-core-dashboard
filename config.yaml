@@ -1,5 +1,5 @@
 # Root of all CT data (parent of SW-1, SW-2, ...)
-root: ""
+root: "."
 
 # Which sample folder is currently active (matches "Sample Index" in General_data.txt)
 active_sample: ""
