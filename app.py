@@ -62,6 +62,12 @@ def list_sample_folders(root: Path):
 
 def list_condition_folders(sample_folder: Path):
     if not sample_folder.exists(): return []
+    
+    # NEW: If the folder itself contains DICOMs, return it directly!
+    has_dcm_here = any(f.is_file() and (f.name.startswith("CT.") or f.suffix.lower() == ".dcm") for f in sample_folder.iterdir())
+    if has_dcm_here:
+        return [sample_folder]
+        
     keep = []
     for p in sample_folder.iterdir():
         if not p.is_dir() or p.name == "CT_Dashboard": continue
