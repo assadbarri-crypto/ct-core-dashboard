@@ -483,8 +483,17 @@ for fam in selected_fams:
     pts = _per_slice_line_points(str(dicom_folder), tuple(range(meta.n_slices)), center, region_diameter, float(filter_min), float(filter_max), DEFAULTS["line_length_ratio"], num_pts, n_per_side, fam, label)
     fig3d.add_trace(go.Surface(z=pts['matrix'], x=pts['slices'], y=list(range(pts['num_points'])), colorscale=[[0, color], [1, color]], showscale=False, name=f"{fam} ({label})", opacity=0.85))
 
-fig3d.update_layout(height=700, scene=dict(xaxis=dict(title='Slice'), yaxis=dict(title='Point'), zaxis=dict(title='CT')))
-st.plotly_chart(fig3d, use_container_width=True)
+fig3d.update_layout(
+    height=700, 
+    margin=dict(l=0, r=0, t=0, b=0), # Remove margins to use full width
+    scene=dict(
+        xaxis=dict(title='Slice'), 
+        yaxis=dict(title='Point'), 
+        zaxis=dict(title='CT'),
+        aspectmode='cube' # This forces the axes to be proportional and fills the space better
+    )
+)
+st.plotly_chart(fig3d, use_container_width=True,width = "stretch")
 
 # ------------------------------------------------------------------
 # Export
