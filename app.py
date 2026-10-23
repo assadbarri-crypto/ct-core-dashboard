@@ -154,8 +154,8 @@ def _per_slice_line_points(folder: str, indices: tuple[int, ...], center: tuple[
 # ------------------------------------------------------------------
 # Page Setup
 # ------------------------------------------------------------------
-st.set_page_config(page_title="CT Core Dashboard", layout="wide")
-st.title("CT Core Sample Dashboard")
+st.set_page_config(page_title="CT Analysis Platform", layout="wide")
+st.title("CT Rock Samples' Platform")
 st.caption(f"Root: {ROOT}   |   Active sample: {ACTIVE_SAMPLE}")
 
 sample_map = {}
