@@ -495,37 +495,3 @@ fig3d.update_layout(
 )
 st.plotly_chart(fig3d, use_container_width=True,width = "stretch")
 
-# ------------------------------------------------------------------
-# Export
-# ------------------------------------------------------------------
-st.subheader("Export — CT values for selected lines")
-if st.button("Prepare Excel Export"):
-    buf = io.BytesIO()
-    with pd.ExcelWriter(buf, engine='openpyxl') as xw:
-        for fam in ['H', 'V', 'D', 'E']:
-            label = {'H': h_sel, 'V': v_sel, 'D': d_sel, 'E': e_sel}[fam]
-            if not label: continue
-            
-            pts = _per_slice_line_points(str(dicom_folder), tuple(range(meta.n_slices)), center, region_diameter, float(filter_min), float(filter_max), DEFAULTS["line_length_ratio"], num_pts, n_per_side, fam, label)
-            # Build DataFrame: Slice, Min, Mean, Max, P0...P20
-            slice_stats = _per_slice_stats(str(dicom_folder), tuple(range(meta.n_slices)), center, region_diameter, float(filter_min), float(filter_max))
-            
-            df = pd.DataFrame({
-                'Slice': pts['slices'],
-                'Min_CT': slice_stats['min'],
-                'Mean_CT': slice_stats['mean'],
-                'Max_CT': slice_stats['max'],
-            })
-            for j in range(pts['num_points']):
-                df[f'P{j}'] = pts['matrix'][:, j]
-            
-            df.to_excel(xw, sheet_name=f"{fam}_{label}"[:31], index=False)
-            
-    buf.seek(0)
-    st.download_button(
-        label="⬇ Download Excel Export",
-        data=buf,
-        file_name="CT_Selected_Lines.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
-
